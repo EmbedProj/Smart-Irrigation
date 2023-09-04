@@ -13,40 +13,48 @@ void pump_enbl() {
 	gpio_set_direction(PUMP_CONTROLLER,GPIO_MODE_OUTPUT);
 	p_stat.pump_en = PUMP_ENABLE;
 	pump_stop();
+	printf("Pump Initialized");
 }
 
 void pump_dsbl() {
 	pump_stop();
 	gpio_reset_pin(PUMP_CONTROLLER);
 	p_stat.pump_en = PUMP_DISABLE;
+	printf("Pump De-initialized");
 }
 
 void pump_start() {
 	gpio_set_level(PUMP_CONTROLLER,1);
 	p_stat.pump_power = PUMP_ON;
+	printf("Pump Started");
 }
 
 void pump_stop() {
 	gpio_set_level(PUMP_CONTROLLER,0);
 	p_stat.pump_power = PUMP_OFF;
+	printf("Pump Stopped");
 }
 
 void status_led_enbl() {
 	gpio_set_direction(PUMP_STATUS_LED,GPIO_MODE_OUTPUT);
 	status_led_off();
+	printf("Pump Status LED enabled");
 }
 
 void status_led_dsbl() {
 	status_led_off();
 	gpio_reset_pin(PUMP_STATUS_LED);
+	printf("Pump Status LED disabled");
 }
 
 void status_led_on() {
 	gpio_set_level(PUMP_STATUS_LED, 1);
+	printf("Pump Status LED ON");
 }
 
 void status_led_off() {
 	gpio_set_level(PUMP_STATUS_LED, 0);
+	printf("Pump Status LED OFF");
 }
 
 pump_status get_pump_status() {
@@ -54,6 +62,10 @@ pump_status get_pump_status() {
 }
 
 pump_status pump_test() {
+	// Testing whether the GPIO pin connected to pump is working fine
+	// Test 1: pin pulled up, read pin level (expected - 1)
+	// Test 2: pin pulled down, read pin level (expected - 0)
+	// Port passes test if both the tests are passed
 
 	gpio_set_direction(PUMP_CONTROLLER,GPIO_MODE_INPUT_OUTPUT);
 	gpio_set_pull_mode(PUMP_CONTROLLER,GPIO_PULLUP_ONLY);

@@ -1,39 +1,44 @@
+#include <smart_controller.h>
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
 
-#include "smart_io_handler.h"
-
-//#include "esp_log.h"
-//#include "led_strip.h"
-//#include "sdkconfig.h"
 
 void POselfTest() {
 	printf("Initiating Power ON Self Test\n");
+
+	// Testing the Pump and Button
 	smart_control_test();
+
+
+	// Test for Display coming up !!!!!
+
+
+	printf("POST completed successfully\n");
 }
 
 void app_main(void)
 {
-//	printf("silicon revision v%d.%d, ", major_rev, minor_rev);
+	// Initializing the Smart Controller
 	smart_control_start();
-	POselfTest();
-	printf("POST completed successfully\n");
 
+	// Starting the POST
+	POselfTest();
+
+	// Sample code to test the functionality of smart_controller module
 	double moisture = 5.0;
-//	double incre = 1.0;
 
 	while (1) {
 
-		//Powering OFF LED
+		//Powering ON Pump and LED
 		moisture = 5.0;
 		smart_control(moisture, 0);
 		printf("LED powered OFF\n");
 		vTaskDelay(1000 / portTICK_PERIOD_MS);
 
 
-		//Powering ON LED
+		//Powering OFF Pump and LED
 		moisture = 15.0;
 		smart_control(moisture, 0);
 		printf("LED powered ON\n");

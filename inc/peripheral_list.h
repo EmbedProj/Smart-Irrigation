@@ -24,6 +24,7 @@
 #define PUMP_CONTROL_GPIO_PIN	GPIO_NUM_25
 #define PUMP_STATUS_LED_GPIO_PIN	GPIO_NUM_26
 
+//enum of GPIO peripherals and the pin numbers they are connected to
 typedef enum {
 	USER_BUTTON = PUSH_BUTTON_GPIO_PIN,
 	PUMP_CONTROLLER = PUMP_CONTROL_GPIO_PIN,

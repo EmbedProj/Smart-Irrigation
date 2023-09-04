@@ -5,8 +5,8 @@
  *      Author: Phani Kiran Maddukuri
  */
 
-#ifndef INC_HANDLERS_SMART_IO_HANDLER_H_
-#define INC_HANDLERS_SMART_IO_HANDLER_H_
+#ifndef INC_SMART_CONTROLLER_H_
+#define INC_SMART_CONTROLLER_H_
 
 #include "user_button.h"
 #include "pump.h"
@@ -21,7 +21,7 @@ typedef enum {
 	USER_BUTTON_NOT_WORKING = PERIPHERAL_NOT_WORKING,
 	PUMP_NOT_WORKING = PERIPHERAL_NOT_WORKING,
 	ALL_PERIPHERAL_NOT_WORKING = PERIPHERAL_NOT_WORKING,
-} smart_hndlr_test_res;
+} smart_cntrl_test_res;
 
 operation_mode get_operation_mode();
 
@@ -31,6 +31,6 @@ void smart_control_stop();
 
 void smart_control(double moisture_reading, short int user_command);
 
-smart_hndlr_test_res smart_control_test();
+smart_cntrl_test_res smart_control_test();
 
 #endif /* INC_HANDLERS_SMART_IO_HANDLER_H_ */
