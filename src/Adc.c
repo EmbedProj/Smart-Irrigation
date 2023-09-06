@@ -10,10 +10,12 @@
 
 #define MIN_ADC_VALUE    0
 #define MAX_ADC_VALUE    3227
+#define WATER_ADC_VALUE  1400
+#define MAX_PERCENTAGE   100
 
 static bool adcValueinRange = false;
 
-void ADC_soil_moisture_init(void)
+void Soil_moisture_init(void)
 {
 	ESP_LOGI("ADC", "Soil Moisture Initilization Started");
 	ESP_LOGI("ADC", "WIDTH BIT 12");
@@ -25,10 +27,20 @@ void ADC_soil_moisture_init(void)
     adc1_config_channel_atten(ADC1_CHANNEL_0,ADC_ATTEN_DB_11); // ADC1 Channel 0
 }
 
-int ADC_get_data()
+float calcMoistPercent(int adcCurrentVal)
+{
+	float val= adcCurrentVal - WATER_ADC_VALUE;
+	float dryPercent= (val/(MAX_ADC_VALUE - WATER_ADC_VALUE)) * 100;
+	float moistPercent= MAX_PERCENTAGE - dryPercent;
+
+	return moistPercent;
+}
+
+float SoilMoisture_Sensor_read_data()
 {
 	int val= adc1_get_raw(ADC1_CHANNEL_0); // get data at ADC1 channel 0
-	return val;
+	float moistPercent = calcMoistPercent(val);
+	return moistPercent;
 }
 
 static bool checkADCValueRange(int adcValue)
@@ -40,9 +52,9 @@ static bool checkADCValueRange(int adcValue)
 	return adcValueinRange;
 }
 
-void POST_adcSoilMoisture()
+void POST_SoilMoistureSensor()
 {
-	int val = ADC_get_data();
+	int val = SoilMoisture_Sensor_read_data();
 	if(checkADCValueRange(val))
 	{
 		ESP_LOGI("POST Adc", "ADC Soil Moisture Value is in Range, POST Passed");
