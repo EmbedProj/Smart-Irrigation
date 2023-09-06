@@ -9,11 +9,11 @@
 #define MAIN_MQTT_H_
 
 void mqtt_app_start(void);
-void publish_temperature(char *data);
-void publish_humidity(char *data);
-void publish_moisture(char *data);
-void publish_mode(char *data);
-void get_pump(char *data);
+void publish_temperature(float val);
+void publish_humidity(float val);
+void publish_moisture(float val);
+void publish_mode(bool val);
+bool get_pump_command(void);
 void POST_MQTT(void);
 
 

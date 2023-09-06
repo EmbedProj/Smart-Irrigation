@@ -140,6 +140,6 @@ void POST_WiFi(void)
 	}
 	else
 	{
-		ESP_LOGI("POST WiFi", "WiFI didn't got an IP, POST Failed");
+		ESP_LOGE("POST WiFi", "WiFI didn't got an IP, POST Failed");
 	}
 }
