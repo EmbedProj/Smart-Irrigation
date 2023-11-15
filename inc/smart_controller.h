@@ -29,7 +29,7 @@ void smart_control_start();
 
 void smart_control_stop();
 
-void smart_control(double moisture_reading, short int user_command);
+void smart_control(float moisture_reading, short int user_command);
 
 smart_cntrl_test_res smart_control_test();
 

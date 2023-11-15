@@ -22,8 +22,8 @@
 #define WIFI_CONNECTED_BIT 				BIT0
 #define WIFI_FAIL_BIT      				BIT1
 
-#define WIFI_AP_SSID	   "OnePlus 7 Pro"
-#define WIFI_AP_PASS	   "Dhoni@008"
+#define WIFI_AP_SSID	   "OnePlus Nord 2T 5G"
+#define WIFI_AP_PASS	   "v7zf7jem"
 
 static const char *TAG = "WIFI Station";
 static bool isGotIP = false;

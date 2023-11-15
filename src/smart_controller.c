@@ -7,6 +7,9 @@
 
 #include "smart_controller.h"
 
+operation_mode opmode = AUTO_MODE;
+int press_counter = 0;
+
 void smart_control_start() {
 	printf("Enabling User button\n");
 	user_button_enbl();
@@ -28,14 +31,35 @@ void smart_control_stop() {
 operation_mode get_operation_mode() {
 	// If button is pressed by user, then operation shifted to MANUAL_MODE
 	// Otherwise the operation is always in AUTO_MODE
+	if (press_counter == 10)
+		press_counter = 0;
+	else if (press_counter > 0)
+		press_counter += 1;
 
-	if (get_button_status().button_press == BUTTON_ON)
-		return MANUAL_MODE;
-	else
-		return AUTO_MODE;
+	if (press_counter == 0)
+	{
+		if (get_button_status().button_press == BUTTON_ON)
+		{
+			printf("Operation mode changed to : ");
+			if (opmode == AUTO_MODE)
+			{
+				opmode = MANUAL_MODE;
+				printf("MANUAL MODE\n");
+			}
+			else if (opmode == MANUAL_MODE)
+			{
+				opmode = AUTO_MODE;
+				printf("AUTO MODE\n");
+			}
+
+			press_counter = 1;
+		}
+	}
+
+	return opmode;
 }
 
-void smart_control(double moisture_reading, short int user_command) {
+void smart_control(float moisture_reading, short int user_command) {
 	// Sample smart controller code
 	// Exact conditions to be updated shortly
 
@@ -44,7 +68,7 @@ void smart_control(double moisture_reading, short int user_command) {
 	// In all other cases the pump should be stopped (including when moisture reading < 10,
 	// but operation in manual mode & user not commanded to start the pump)
 
-	if (moisture_reading < 10.0 && get_operation_mode() == AUTO_MODE) {
+	if (moisture_reading < 20.0 && get_operation_mode() == AUTO_MODE) {
 		pump_start();
 		status_led_on();
 	}
@@ -85,7 +109,7 @@ smart_cntrl_test_res smart_control_test() {
 	}
 
 	if (test_score == 0) {
-		printf("Issue with both the button and pump ports");
+		printf("Issue with both the button and pump ports\n");
 		return ALL_PERIPHERAL_NOT_WORKING;
 	}
 	else if (test_score == 1) {

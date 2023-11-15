@@ -14,7 +14,7 @@ static const char *TAG = "MQTT";
 static bool isMqttConnected;
 static bool pumpCommand;
 
-#define CONFIG_BROKER_URL "mqtt://Kshitij_singh:aio_SFqg983weNbKwYWlsfwKiGcJbvkG@io.adafruit.com:1883"
+#define CONFIG_BROKER_URL "mqtt://Kshitij_singh:@io.adafruit.com:1883"
 #define TOPIC_TEMPERATURE "Kshitij_singh/feeds/temperature"
 #define TOPIC_HUMIDITY    "Kshitij_singh/feeds/humidity"
 #define TOPIC_MOISTURE    "Kshitij_singh/feeds/moisture"

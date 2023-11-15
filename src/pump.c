@@ -13,48 +13,48 @@ void pump_enbl() {
 	gpio_set_direction(PUMP_CONTROLLER,GPIO_MODE_OUTPUT);
 	p_stat.pump_en = PUMP_ENABLE;
 	pump_stop();
-	printf("Pump Initialized");
+	printf("Pump Initialized\n");
 }
 
 void pump_dsbl() {
 	pump_stop();
 	gpio_reset_pin(PUMP_CONTROLLER);
 	p_stat.pump_en = PUMP_DISABLE;
-	printf("Pump De-initialized");
+	printf("Pump De-initialized\n");
 }
 
 void pump_start() {
 	gpio_set_level(PUMP_CONTROLLER,1);
 	p_stat.pump_power = PUMP_ON;
-	printf("Pump Started");
+	printf("Pump Started\n");
 }
 
 void pump_stop() {
 	gpio_set_level(PUMP_CONTROLLER,0);
 	p_stat.pump_power = PUMP_OFF;
-	printf("Pump Stopped");
+	printf("Pump Stopped\n");
 }
 
 void status_led_enbl() {
 	gpio_set_direction(PUMP_STATUS_LED,GPIO_MODE_OUTPUT);
 	status_led_off();
-	printf("Pump Status LED enabled");
+	printf("Pump Status LED enabled\n");
 }
 
 void status_led_dsbl() {
 	status_led_off();
 	gpio_reset_pin(PUMP_STATUS_LED);
-	printf("Pump Status LED disabled");
+	printf("Pump Status LED disabled\n");
 }
 
 void status_led_on() {
 	gpio_set_level(PUMP_STATUS_LED, 1);
-	printf("Pump Status LED ON");
+	printf("Pump Status LED ON\n");
 }
 
 void status_led_off() {
 	gpio_set_level(PUMP_STATUS_LED, 0);
-	printf("Pump Status LED OFF");
+	printf("Pump Status LED OFF\n");
 }
 
 pump_status get_pump_status() {
