@@ -13,6 +13,7 @@ void publish_temperature(float val);
 void publish_humidity(float val);
 void publish_moisture(float val);
 void publish_mode(bool val);
+void publish_pumpstatus(bool val);
 bool get_pump_command(void);
 void POST_MQTT(void);
 

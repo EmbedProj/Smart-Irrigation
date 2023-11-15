@@ -20,6 +20,7 @@ static bool pumpCommand;
 #define TOPIC_MOISTURE    "Kshitij_singh/feeds/moisture"
 #define TOPIC_MODE        "Kshitij_singh/feeds/mode"
 #define TOPIC_PUMP		  "Kshitij_singh/feeds/pump"
+#define TOPIC_PUMP_STATUS "Kshitij_singh/feeds/pumpstatus"
 
 esp_mqtt_client_handle_t Mqtt_client_id;
 
@@ -150,6 +151,24 @@ void publish_mode(bool val)
 		ESP_LOGI(TAG, "Mode Publish msg_id=%d , data = %d", msg_id, val);
 	else
 		ESP_LOGE(TAG, "Mode Publish Failed, msg_id=%d", msg_id);
+}
+
+void publish_pumpstatus(bool val)
+{
+	int msg_id;
+	char data;
+
+	if(val)
+		data = '1';
+	else
+		data = '0';
+
+	msg_id = esp_mqtt_client_publish(Mqtt_client_id, TOPIC_PUMP_STATUS, &data, 1, 1, 0);
+
+	if (msg_id > 0)
+		ESP_LOGI(TAG, "PumpStatus Publish msg_id=%d , data = %d", msg_id, val);
+	else
+		ESP_LOGE(TAG, "PumpStatus Publish Failed, msg_id=%d", msg_id);
 }
 
 bool get_pump_command(void)
